@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Word Guessing Game</title>
+<!--  <link rel="stylesheet" href="style.css" />
+  <script src="script.js"></script> -->
+</head>
+<style>
+h1 {
+  background-color: lightblue;
+  color: blueviolet;
+  font-size: xx-large;
+  padding: 2%;
+}
+
+.card{
+  min-width: 30%; 
+  width: 50vh; 
+  min-height: 30vh; 
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+  transition: 0.3s; 
+  border-radius: 5px; 
+  margin: auto; 
+  padding: 2%; 
+}
+
+body { 
+  display: flex; 
+  text-align: center; 
+  font-family: "Gill Sans",  
+                 "Gill Sans MT",  
+                 Calibri, "Trebuchet MS", 
+               sans-serif; 
+} 
+
+input { 
+  width: 30px; 
+  padding: 1%; 
+  font-size: larger; 
+  text-align: center; 
+  margin-left: 2%; 
+} 
+
+#displayWord { 
+  font-size: xx-large; 
+}
+</style>
+
+<body>
+  <div class="card">
+  <p>
+    <b>Hint:</b> A programming language
+  </p>
+  <p id="displayWord"></p>
+  <p>Guess one letter:
+
+       <input type="text"
+              maxlength="1"
+              id="letter-input">
+  </p>
+  <button onclick="guessLetter()">
+      Submit
+  </button>
+</div>
+</body>
+
+<script type="text/javascript">
+  const words = [
+    "java",
+    "javascript",
+    "python",
+    "pascal",
+    "ruby",
+    "perl",
+    "swift",
+    "kotlin",
+  ];
+  
+  let randomIndex = Math.floor(Math.random() * words.length);
+  let selectedWord = words[randomIndex];
+  console.log(selectedWord);
+  
+  let guessedlist = [];
+  
+  let displayWord = "";
+  for (let i = 0; i < selectedWord.length; i++){
+    displayWord += "_";
+  }
+  document.getElementById("displayWord").textContent = displayWord;
+  
+  function guessLetter(){
+    let inputElement = 
+      document.getElementById("letter-input");
+  
+      if (!inputElement.value){
+        alert("Empty Input box. Please add input letter");
+        return;
+      }
+  
+      let letter = inputElement.value.toLowerCase();
+  
+      inputElement.value = "";
+  
+      if(guessedlist.includes(letter)){
+        alert("You have already guessed that letter!");
+        return;
+      }
+  
+      guessedlist.push(letter);
+  
+      let updatedDisplay = "";
+      let allLettersGuessed = true;
+      for (let i = 0; i < selectedWord.length; i++){
+         if(guessedlist.includes(selectedWord[i])){
+            updatedDisplay += selectedWord[i]
+         } else {
+            updatedDisplay += "_";
+            allLettersGuessed = false;
+         }
+      }
+      document.getElementById("displayWord")
+        .textContent = updatedDisplay;
+  
+      if (allLettersGuessed){
+        alert("Correct Answer");
+      }
+  }
+  </script>
+</html>
