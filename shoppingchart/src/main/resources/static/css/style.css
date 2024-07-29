@@ -1,0 +1,18 @@
+#datetime {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 18px;
+  font-family: Arial, sans-serif;
+}
+
+.test-table{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+th, td{
+  padding: 0.5rem;
+  border: 1px solid #000000;
+  text-align: left;
+}

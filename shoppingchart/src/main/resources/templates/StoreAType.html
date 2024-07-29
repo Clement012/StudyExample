@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shopping Chart</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <script th:src="@{/js/localdatetime.js}" defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        img {
+            width: 100px;
+            height: auto;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Shopping Chart</h1>
+    <div id="datetime"></div>
+    <table class="test-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="type : ${types}">
+                <td th:text="${type.name}"></td>
+                <td>
+                    <div th:each="image : ${type.image}">
+                        <img th:src="${image}" alt="Product Image"/>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
