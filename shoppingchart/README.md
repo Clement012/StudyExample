@@ -1,2 +1,8 @@
-StoreA: https://fakeapi.platzi.com/
-StoreB: https://fakestoreapi.com/products/
+Demo-Shopping-mall (html/css/js/java/SQL)
+![alt text](<img/demo.png>)
+
+Roadmap
+TBC
+
+
+

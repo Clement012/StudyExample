@@ -1,33 +1,74 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>Shopping Chart</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
-    <script th:src="@{/js/localdatetime.js}" defer></script>
-   </head>
-   <body>
-     <h1>Shopping Chart</h1>
-     <div id="datetime"></div>
-     <table class="test-table">
-      <thead>
-      <tr>
-        <th>title</th>
-        <th>price</th>
-        <th>description</th>
-        <th>image</th>
-      </tr>
-      <tbody>
-        <tr th:each="stock : ${stocks}">
-          <td th:text="${stock.title}"></td>
-          <td th:text="${stock.price}"></td>
-          <td th:text="${stock.description}"></td>
-          <td>
-            <div th:each="image : ${stock.images}">
-                <img th:src="${image}" alt="Product Image" style="width: 100px; height: auto; margin-right: 5px;"/>
-            </div>
-        </td>
-      </tbody>
-    </thead>
-     </table>
-   </body>
- </html>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/table.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/var.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script th:src="@{/js/var.js}" defer></script>
+</head>
+<body>
+<div id="var-container">
+    <div id="home">
+        <i class="fa fa-home"></i>
+    </div>
+    <div id="cart">
+        <i class="fa fa-shopping-cart"></i>
+    </div>
+    <div id="datetime"></div>
+</div>
+<h1 id="heading">Shopping Mall</h1>
+
+<div class="store-container">
+    <table class="atable">
+        <caption class="acaption">
+            <a href="/astocks" style="text-decoration: none; color: inherit;">StoreA</a>
+        </caption>
+        <thead>
+            <tr>
+                <th>Clothes</th>
+                <th>Electronics</th>
+                <th>Furniture</th>
+                <th>Shoes</th>
+                <th>Miscellaneous</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><img th:src="${atypes[0].image}" alt="Clothes Image" class="aimg"/></td>
+                <td><img th:src="${atypes[1].image}" alt="Electronics Image" class="aimg"/></td>
+                <td><img th:src="${atypes[2].image}" alt="Furniture Image" class="aimg"/></td>
+                <td><img th:src="${atypes[3].image}" alt="Shoes Image" class="aimg"/></td>
+                <td><img th:src="${atypes[4].image}" alt="Miscellaneous Image" class="aimg"/></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="store-container">
+    <table class="btable">
+        <caption class="acaption">
+            <a href="/bstocks" style="text-decoration: none; color: inherit;">StoreB</a>
+        </caption>
+        <thead>
+            <tr>
+                <th>Mens Clothes</th>
+                <th>Women's Clothes</th>
+                <th>Jewelery</th>
+                <th>Electronics</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><img th:if="${randomMens}" th:src="${randomMens.image}" alt="Mens Clothes Image" class="bimg"/></td> 
+                <td><img th:if="${randomWomens}" th:src="${randomWomens.image}" alt="Womens Clothes Image" class="bimg"/></td>
+                <td><img th:if="${randomJewelery}" th:src="${randomJewelery.image}" alt="Jewelery Image" class="bimg"/></td>
+                <td><img th:if="${randomElectronics}" th:src="${randomElectronics.image}" alt="Electronics Image" class="bimg"/></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
+
+

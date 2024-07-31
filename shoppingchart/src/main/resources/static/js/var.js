@@ -1,3 +1,5 @@
+// datetime
+
 function updateDateTime() {
   const now = new Date();
   const year = String(now.getFullYear());
@@ -15,3 +17,21 @@ setInterval(updateDateTime, 1000);
 
 // Initial call to display the current date and time immediately
 window.onload = updateDateTime;
+
+document.addEventListener('DOMContentLoaded', () => {
+  const homeDiv = document.getElementById('home');
+  homeDiv.style.cursor = 'pointer'; // Change cursor to pointer
+
+  homeDiv.addEventListener('click', () => {
+    fetch('/')
+      .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.text();
+      })
+      .then(html => {
+        document.body.innerHTML = html; // Replace body content with fetched HTML
+        history.pushState(null, '', '/');
+      })
+      .catch(error => console.error('There has been a problem with your fetch operation:', error));
+  });
+});

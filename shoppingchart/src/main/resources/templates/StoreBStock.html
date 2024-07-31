@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Store B</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/table.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/var.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script th:src="@{/js/var.js}" defer></script>
+   </head>
+   <body>
+     <h1>Store B</h1>
+     <div id="var-container">
+      <div id="home">
+          <i class="fa fa-home"></i>
+      </div>
+      <div id="cart">
+          <i class="fa fa-shopping-cart"></i>
+      </div>
+      <div id="datetime"></div>
+     </div>
+     <table class="test-table">
+      <thead>
+      <tr>
+        <th>title</th>
+        <th>price</th>
+        <th>description</th>
+        <th>image</th>
+      </tr>
+      <tbody>
+        <tr th:each="stock : ${bstocks}">
+          <td th:text="${stock.title}"></td>
+          <td th:text="${stock.price}"></td>
+          <td th:text="${stock.description}"></td>
+          <td> <img th:src="${stock.image}" style="width: 100px; height: auto; margin-right: 5px;"></td>
+      </tbody>
+    </thead>
+     </table>
+   </body>
+ </html>
