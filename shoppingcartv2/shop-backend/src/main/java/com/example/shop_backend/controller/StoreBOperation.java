@@ -8,6 +8,6 @@ import com.example.shop_backend.model.storeB.StoreBStock;
 
 public interface StoreBOperation {
   
-  @GetMapping(value = "/storebstock")
+  @GetMapping(value = "/bstock")
   List<StoreBStock> getStocks();
 }

@@ -9,9 +9,9 @@ import com.example.shop_backend.model.storeA.StoreAType;
 
 public interface StoreAOperation {
   
-  @GetMapping(value ="/storeastock")
+  @GetMapping(value ="/astock")
   List<StoreAStock> getStocks();
 
-  @GetMapping(value ="/storeatype")
+  @GetMapping(value ="/atype")
   List<StoreAType> getTypes();
 }
