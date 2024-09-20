@@ -4,12 +4,57 @@
     <meta charset="UTF-8">
     <link rel="icon" href="/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hong Kong Stock Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.20/dist/vue.global.prod.js"></script>
+    <title>Vue</title>
   </head>
   <body>
-    <div id="app"></div>
-    <img src="/src/components/images/StockBackground.jpg" alt="background" width="500" height="600">
-    <h1>Hello World</h1>
-    <script type="module" src="/src/main.js"></script>
+    <div id="app">
+      <!-- <p>{{name}}</p> -->
+      <!-- <p> Subtotal ${{subtotalMet()}} </p>
+      <p>  {{ subtotalCom }} 元 </p> -->
+      <!-- <p> Calculator:</p> -->
+      <div>HK 1 vs US 0.128</div>
+      <div>HK:<input type="text" v-model="hkd" v-on:input="hk2us"></div>
+      <div>US:<input type="text" v-model="usd" v-on:input="us2hk"></div>
+    </div>
+    <!-- <img src="/src/components/images/StockBackground.jpg" alt="background"> -->
+    <!-- <script type="module" src="/src/main.js"></script> -->
+    <script>
+    const starting = Vue.createApp({
+      // template: `<div>{{ name }} 好棒棒!</div>`,
+      data(){
+        return {
+          name: 'Hello World',
+          price: 100,
+          quantity: 10,
+          hkd: 100,
+          usd: 0
+        }
+      },
+      computed: {
+        subtotalCom: function(){
+          console.log('com');
+          return this.price * this.quantity;
+        }
+      },
+      methods:{
+        subtotalMet: () => {
+          console.log('met')
+          return this.price * this.quantity;
+        },
+        hk2us(){
+          this.usd = Number.parseFloat(Number(this.hkd) / 0.128).toFixed(3);
+        },
+        us2hk(){
+          this.hkd = Number.parseFloat(Number(this.usd) * 0.128).toFixed(3);
+        },
+      },
+      mounted (){
+  	      this.hk2us();
+          this.us2hk();
+        } 
+    });
+    starting.mount('#app')
+  </script>
   </body>
 </html>
