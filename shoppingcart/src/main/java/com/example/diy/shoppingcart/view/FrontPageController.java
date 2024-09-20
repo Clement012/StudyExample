@@ -3,13 +3,14 @@ package com.example.diy.shoppingcart.view;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import com.example.diy.shoppingcart.controller.StoreAOperation;
 import com.example.diy.shoppingcart.controller.StoreBOperation;
-import com.example.diy.shoppingcart.model.storeA.StoreAStock;
 import com.example.diy.shoppingcart.model.storeA.StoreAType;
 import com.example.diy.shoppingcart.model.storeB.StoreBStock;
 
@@ -40,18 +41,11 @@ public class FrontPageController {
       // Categorize the items
       for (StoreBStock item : btypes) {
           switch (item.getCategory()) {
-              case "men's clothing":
-                  mensClothes.add(item);
-                  break;
-              case "women's clothing":
-                  womensClothes.add(item);
-                  break;
-              case "jewelery": // Corrected spelling
+              case "men's clothing" -> mensClothes.add(item);
+              case "women's clothing" -> womensClothes.add(item);
+              case "jewelery" -> // Corrected spelling
               jewelery.add(item);
-                  break;
-              case "electronics":
-                  electronics.add(item);
-                  break;
+              case "electronics" -> electronics.add(item);
           }
       }
 
