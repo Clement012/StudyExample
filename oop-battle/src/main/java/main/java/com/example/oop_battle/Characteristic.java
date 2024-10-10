@@ -1,6 +1,6 @@
 package main.java.com.example.oop_battle;
 
-enum Characteristic {
+public enum Characteristic {
   METAL(1, "Metal"),
   WOOD(2, "Wood"),
   WATER(3, "Water"), 
