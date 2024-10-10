@@ -1,17 +1,19 @@
 package main.java.com.example.oop_battle;
 
-public enum Characteristic {
-  METAL(1, "Metal"),
-  WOOD(2, "Wood"),
-  WATER(3, "Water"), 
-  FIRE(4, "Fire"), 
-  EARTH(5, "Earth"), 
+
+enum Characteristic {
+  WATER(1, "Water"), 
+  EARTH(2, "Earth"), 
+  WOOD(3, "Wood"),
+  METAL(4, "Metal"),
+  FIRE(5, "Fire"), 
+  
   LIGHT(8, "Light"), 
   DARK(9, "Dark"),
   ;
 
-  private final int id;
-  private final String name;
+  public int id;
+  public String name;
 
   Characteristic(int id, String name) {
       this.id = id;
@@ -24,13 +26,6 @@ public enum Characteristic {
 
   public String getName() {
       return name;
-  }
-
-  public int applyBonus(int attack) {
-      if (this.id % 2 != 0) {
-          return (int) (attack * 1.5);
-      }
-      return attack;
   }
 }
 

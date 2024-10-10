@@ -1,5 +1,11 @@
 package main.java.com.example.oop_battle;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+
 public class Character {
     private int hp;
     private int attack;

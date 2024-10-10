@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import main.java.com.example.oop_battle.Character;
 
-
 @Controller
 public class BattleController {
 
