@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Battle Simulation</title>
+    <style>
+        .character {
+            display: inline-block;
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            margin-right: 20px;
+            text-align: center;
+        }
+
+        img {
+            max-width: 100px;
+            margin-bottom: 10px;
+        }
+
+        .battle-area {
+            margin-top: 20px;
+        }
+
+        .reserve-area {
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Battle Simulation</h1>
+
+    <form action="#" th:action="@{/battle}" th:method="post">
+        <div class="battle-area">
+            <!-- Character 1 -->
+            <div class="character">
+                <h2>Character 1</h2>
+                <div class="reserve-area">
+                    <img src="character1.png" alt="Character 1">
+                </div>
+                <p>HP: <input type="number" name="hp1" th:value="${hp1 != null ? hp1 : ''}" required></p>
+                <p>Attack: <input type="number" name="attack1" th:value="${attack1 != null ? attack1 : ''}" required></p>
+                <p>Characteristic:
+                    <select name="characteristic1" required>
+                        <option th:each="char : ${characteristics}" th:value="${char}" th:text="${char.name()}"></option>
+                    </select>
+                </p>
+            </div>
+
+            <!-- Character 2 -->
+            <div class="character">
+                <h2>Character 2</h2>
+                <div class="reserve-area">
+                    <img src="character2.png" alt="Character 2">
+                </div>
+                <p>HP: <input type="number" name="hp2" th:value="${hp2 != null ? hp2 : ''}" required></p>
+                <p>Attack: <input type="number" name="attack2" th:value="${attack2 != null ? attack2 : ''}" required></p>
+                <p>Characteristic:
+                    <select name="characteristic2" required>
+                        <option th:each="char : ${characteristics}" th:value="${char}" th:text="${char.name()}"></option>
+                    </select>
+                </p>
+            </div>
+        </div>
+
+        <div>
+            <button type="submit">Fight!</button>
+        </div>
+    </form>
+
+    <div th:if="${hp1 != null && hp2 != null}">
+        <h3>Battle Result</h3>
+        <p>Character 1 HP: <span th:text="${hp1}"></span></p>
+        <p>Character 2 HP: <span th:text="${hp2}"></span></p>
+    </div>
+</body>
+</html>
