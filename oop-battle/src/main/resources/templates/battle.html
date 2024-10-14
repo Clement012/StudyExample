@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,15 +57,9 @@
     <button onclick="attack('character2')">Attack with Character 2</button>
 </div>
 
-<script>
-  let turns = 0;
-  const characters = /*[[${characters}]]*/[];
-  console.log(characters);
-
-  document.addEventListener("DOMContentLoaded", function() {
-      const charactersData = /*[[${characters}]]*/ '[]';
-      const characters = JSON.parse(charactersData);
-
+<script th:inline="javascript">
+      let turns = 0;
+      const characters = '[[${characters}]]';
       console.log(characters);
 
       characters.forEach(character => {
@@ -130,9 +124,6 @@
           updateCharacterInfo();
       }
 
-      window.updateCharacterInfo = updateCharacterInfo;
-      window.attack = attack;
-  });
 </script>
 
 </body>
