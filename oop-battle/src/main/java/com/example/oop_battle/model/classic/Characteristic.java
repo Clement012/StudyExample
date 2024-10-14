@@ -22,13 +22,5 @@ public enum Characteristic {
   private final int charCode;
   private final int hp;
   private final int attack;
-
-  public int getAttack(){
-    return this.attack;
-  }
-
-  public int getHp(){
-    return this.hp;
-  }
 }
 

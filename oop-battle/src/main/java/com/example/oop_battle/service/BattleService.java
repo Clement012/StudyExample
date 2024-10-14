@@ -11,13 +11,6 @@ import com.example.oop_battle.model.classic.Characteristic;
 @Service
 public class BattleService {
 
-    // public void battle(Character attacker, Character defender) {
-    //     int attack = attacker.getAttack();
-    //     defender.applyDamage(attack);
-    //     // int boostedAttack = attacker.getCharacteristic().applyBonus(attacker.getAttack());
-    //     // defender.applyDamage(boostedAttack);
-    // }
-
     public List<Character> getAllCharacters(){
         List<Character> characters = new ArrayList<>();
         for (Characteristic characteristic : Characteristic.values()) {
@@ -27,9 +20,5 @@ public class BattleService {
         return characters;
     }
 
-    public static void main(String[] args) {
-        BattleService output = new BattleService();
-        List<Character> characters = output.getAllCharacters();
-        System.out.println(characters);
-    }
+    
 }

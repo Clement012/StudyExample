@@ -22,10 +22,6 @@ public class Character {
     public void applyDamage(int damage) {
         this.hp = Math.max(0, this.hp - damage);
     }
-
-    public int getAttack(){
-        return this.attack;
-    }
 }
 
 

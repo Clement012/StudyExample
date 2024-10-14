@@ -18,5 +18,4 @@ public class Attack {
   //   return attack;
   //  }
 
-
 }

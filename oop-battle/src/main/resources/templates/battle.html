@@ -1,77 +1,139 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Battle Simulation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battle Game</title>
     <style>
-        .character {
-            display: inline-block;
-            width: 300px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            margin-right: 20px;
-            text-align: center;
-        }
-
-        img {
-            max-width: 100px;
-            margin-bottom: 10px;
-        }
-
-        .battle-area {
-            margin-top: 20px;
-        }
-
-        .reserve-area {
-            height: 150px;
-        }
-    </style>
+      body {
+          font-family: Arial, sans-serif;
+          text-align: center;
+          margin: 20px;
+      }
+      .character-select {
+          margin-bottom: 20px;
+      }
+      .battle-info {
+          margin-top: 20px;
+      }
+      button {
+          padding: 10px 20px;
+          margin: 10px;
+          cursor: pointer;
+      }
+      .character-info {
+          display: inline-block;
+          margin: 10px;
+          padding: 10px;
+          border: 1px solid #ccc;
+          width: 150px;
+          height: 200px;
+      }
+  </style>
 </head>
 <body>
-    <h1>Battle Simulation</h1>
 
-    <form action="#" th:action="@{/battle}" th:method="post">
-        <div class="battle-area">
-            <!-- Character 1 -->
-            <div class="character">
-                <h2>Character 1</h2>
-                <div class="reserve-area">
-                    <!-- <img src="character1.png" alt="Character 1"> -->
-                </div>
-                <p>HP: <input type="number" name="hp1" th:value="${hp1 != null ? hp1 : ''}" required></p>
-                <p>Attack: <input type="number" name="attack1" th:value="${attack1 != null ? attack1 : ''}" required></p>
-                <p>Characteristic:
-                    <select name="characteristic1" required>
-                        <option th:each="char : ${characteristics}" th:value="${char}" th:text="${char.name()}"></option>
-                    </select>
-                </p>
-            </div>
+<h1>Battle Game</h1>
 
-            <!-- Character 2 -->
-            <div class="character">
-                <h2>Character 2</h2>
-                <div class="reserve-area">
-                    <!-- <img src="character2.png" alt="Character 2"> -->
-                </div>
-                <p>HP: <input type="number" name="hp2" th:value="${hp2 != null ? hp2 : ''}" required></p>
-                <p>Attack: <input type="number" name="attack2" th:value="${attack2 != null ? attack2 : ''}" required></p>
-                <p>Characteristic:
-                    <select name="characteristic2" required>
-                        <option th:each="char : ${characteristics}" th:value="${char}" th:text="${char.name()}"></option>
-                    </select>
-                </p>
-            </div>
-        </div>
+<div class="character-select">
+  <h3>Select Characters</h3>
+  <select id="character1" onchange="updateCharacterInfo()">
+      <option value="">Select Character 1</option>
+      <option th:each="character : ${characters}" th:value="${character.characteristic}" th:text="${character.characteristic}"></option>
+  </select>
+  <select id="character2" onchange="updateCharacterInfo()">
+      <option value="">Select Character 2</option>
+      <option th:each="character : ${characters}" th:value="${character.characteristic}" th:text="${character.characteristic}"></option>
+  </select>
+</div>
 
-        <div>
-            <button type="submit">Fight!</button>
-        </div>
-    </form>
+<div class="character-info" id="character1-info"></div>
+<div class="character-info" id="character2-info"></div>
 
-    <div th:if="${hp1 != null && hp2 != null}">
-        <h3>Battle Result</h3>
-        <p>Character 1 HP: <span th:text="${hp1}"></span></p>
-        <p>Character 2 HP: <span th:text="${hp2}"></span></p>
-    </div>
+<div class="battle-info">
+    <h3>Battle</h3>
+    <p id="turns">Turns: 0</p>
+    <button onclick="attack('character1')">Attack with Character 1</button>
+    <button onclick="attack('character2')">Attack with Character 2</button>
+</div>
+
+<script>
+  let turns = 0;
+  const characters = /*[[${characters}]]*/[];
+  console.log(characters);
+
+  document.addEventListener("DOMContentLoaded", function() {
+      const charactersData = /*[[${characters}]]*/ '[]';
+      const characters = JSON.parse(charactersData);
+
+      console.log(characters);
+
+      characters.forEach(character => {
+          character.originalHp = character.hp; // Store original HP for reset
+      });
+
+      function updateCharacterInfo() {
+          const char1 = document.getElementById('character1').value;
+          const char2 = document.getElementById('character2').value;
+
+          const char1Info = characters.find(c => c.characteristic === char1);
+          const char2Info = characters.find(c => c.characteristic === char2);
+
+          document.getElementById('character1-info').innerHTML = char1Info ? 
+              `HP: ${char1Info.hp}<br>Attack: ${char1Info.attack}` : '';
+
+          document.getElementById('character2-info').innerHTML = char2Info ? 
+              `HP: ${char2Info.hp}<br>Attack: ${char2Info.attack}` : '';
+      }
+
+      function attack(characterId) {
+          const char1 = document.getElementById('character1').value;
+          const char2 = document.getElementById('character2').value;
+
+          if (!char1 || !char2) {
+              alert("Please select both characters.");
+              return;
+          }
+
+          let attacker, defender;
+          if (characterId === 'character1') {
+              attacker = characters.find(c => c.characteristic === char1);
+              defender = characters.find(c => c.characteristic === char2);
+          } else {
+              attacker = characters.find(c => c.characteristic === char2);
+              defender = characters.find(c => c.characteristic === char1);
+          }
+
+          if (!attacker || !defender) {
+              alert("Character not found.");
+              return;
+          }
+
+          defender.hp -= attacker.attack;
+          turns++;
+          document.getElementById('turns').textContent = `Turns: ${turns}`;
+
+          updateCharacterInfo();
+
+          if (defender.hp <= 0) {
+              alert(`${characterId === 'character1' ? char1 : char2} wins!`);
+              resetGame();
+          }
+      }
+
+      function resetGame() {
+          turns = 0;
+          document.getElementById('turns').textContent = 'Turns: 0';
+          characters.forEach(character => {
+              character.hp = character.originalHp; // Reset HP
+          });
+          updateCharacterInfo();
+      }
+
+      window.updateCharacterInfo = updateCharacterInfo;
+      window.attack = attack;
+  });
+</script>
+
 </body>
 </html>
