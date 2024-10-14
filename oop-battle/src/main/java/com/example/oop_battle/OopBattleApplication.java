@@ -1,4 +1,4 @@
-package main.java.com.example.oop_battle;
+package com.example.oop_battle;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
