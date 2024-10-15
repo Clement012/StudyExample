@@ -1,0 +1,11 @@
+# Use an official Python image as a base
+FROM python:3.11
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the local .py file to the container
+COPY test.py .
+
+# # Command to run your Python script
+CMD ["python", "test.py"]
