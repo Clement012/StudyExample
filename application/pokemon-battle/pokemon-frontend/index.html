@@ -279,7 +279,7 @@
           }
         },
         getImageUrl(imagePath) {
-          return `http://localhost:8080${imagePath}`;
+          return `http://localhost:8081${imagePath}`;
         },
         attackCharacter1() {
           if (this.battleFinished) return;
@@ -309,7 +309,7 @@
         },
         calculateDamage(attack, defense) {
           // Simple damage formula: attack - defense + base damage
-          return Math.max(0, attack - defense + 10);
+          return Math.max(1, attack - defense + 10);
         }
       }
     });

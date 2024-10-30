@@ -12,7 +12,6 @@ import com.example.pokemon_backend.mapper.PokemonMapper;
 import com.example.pokemon_backend.modelDTO.PokemonDTO;
 import com.example.pokemon_backend.service.PokemonService;
 
-
 @RestController
 public class PokemonController {
   
