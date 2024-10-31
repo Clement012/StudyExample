@@ -48,6 +48,7 @@ public class PokemonDTO {
   public static class Base {
     @JsonProperty("HP") // Ensure this matches the JSON key exactly
     private int hp;
+    @JsonProperty("MP")
     private int MP;
     @JsonProperty("Attack") // Ensure this matches the JSON key exactly
     private int attack;
