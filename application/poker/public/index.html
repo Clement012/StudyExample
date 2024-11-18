@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Big Two - My Hand</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <style>
+    body {
+      background-color: green;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+    .card {
+      width: 60px;
+      height: 90px;
+      border: 1px solid #000;
+      display: inline-block;
+      margin: 5px;
+      padding: 10px;
+      text-align: center;
+      border-radius: 8px;
+      font-size: 1.2em;
+      background-color: white;
+      color: black;
+    }
+    .hearts, .diamonds {
+      color: red;
+    }
+    .spades, .clubs {
+      color: black;
+    }
+    .buttons {
+      margin-bottom: 15px;
+    }
+    .player {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>Big Two - 4 Players</h1>
+    <div class="buttons">
+      <button @click="startGame">Start</button>
+      <button @click="shuffleHand">Restart</button>
+    </div>
+    
+    <div v-if="players.length > 0">
+      <div v-for="(player, index) in players" :key="'player-' + index" class="player">
+        <h2>Player {{ index + 1 }}'s Cards:</h2>
+        <div v-for="card in player.hand" :key="card.id" class="card" :class="card.suitClass">
+          {{ card.rank }} {{ card.suit }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        deck: [],
+        players: []
+      },
+      created() {
+        this.createDeck();
+      },
+      methods: {
+        createDeck() {
+          const suits = ['♦', '♣', '♥', '♠'];
+          const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+
+          this.deck = [];
+
+          // Create a deck of 52 cards
+          for (let suit of suits) {
+            for (let rank of ranks) {
+              this.deck.push({
+                id: `${rank}-of-${suit}`,
+                rank: rank,
+                suit: suit,
+                suitClass: this.getSuitClass(suit) // Used for CSS class
+              });
+            }
+          }
+        },
+        
+        getSuitClass(suit) {
+          if (suit === '♥') return 'hearts';
+          if (suit === '♦') return 'diamonds';
+          if (suit === '♣') return 'clubs';
+          if (suit === '♠') return 'spades';
+        },
+
+        shuffleDeck() {
+          // Shuffle the deck using the Fisher-Yates algorithm
+          for (let i = this.deck.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.deck[i], this.deck[j]] = [this.deck[j], this.deck[i]];
+          }
+        },
+
+        dealCards() {
+          // Deal 13 cards to each player
+          this.players = [
+            { hand: this.deck.slice(0, 13) },
+            { hand: this.deck.slice(13, 26) },
+            { hand: this.deck.slice(26, 39) },
+            { hand: this.deck.slice(39, 52) }
+          ];
+
+          // Sort each player's hand based on suit and rank
+          this.players.forEach(player => {
+            player.hand.sort((a, b) => this.compareCards(a, b));
+          });
+        },
+
+        startGame() {
+          // Shuffle the deck and deal cards to 4 players
+          this.shuffleDeck();
+          this.dealCards();
+        },
+
+        shuffleHand() {
+          // Shuffle the deck again and restart the game (clear players first, then deal new cards)
+          this.players = [];
+          this.startGame();
+        },
+
+        compareCards(a, b) {
+          const suitOrder = { '♦': 1, '♣': 2, '♥': 3, '♠': 4 }; 
+          const rankOrder = { 'A': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13 };
+
+          // First, compare by suit
+          if (suitOrder[a.suit] !== suitOrder[b.suit]) {
+            return suitOrder[a.suit] - suitOrder[b.suit];
+          }
+          // If suits are the same, compare by rank
+          return rankOrder[a.rank] - rankOrder[b.rank];
+        }
+      }
+    });
+  </script>
+</body>
+</html>
